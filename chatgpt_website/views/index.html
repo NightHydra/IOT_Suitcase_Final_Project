@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Luggage Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .box {
+      border: 2px solid black;
+      padding: 15px;
+      min-width: 250px;
+      min-height: 200px;
+    }
+
+    .box h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .image-list a {
+      display: block;
+      margin: 5px 0;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .selected-images img {
+      max-width: 100%;
+      margin-top: 10px;
+    }
+
+    .logs-box {
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Luggage Tracker</h1>
+
+  <div class="main-container">
+    <div class="left-column">
+      <div class="box">
+        <h2>Alerts</h2>
+        <div id="imageList" class="image-list"></div>
+      </div>
+
+      <div class="box">
+        <h2>Selected Image</h2>
+        <div id="selectedImages" class="selected-images"></div>
+      </div>
+    </div>
+
+    <div class="box" style="flex-grow: 1;">
+      <h2>Logs</h2>
+      <div id="logsBox" class="logs-box">Loading logs...</div>
+    </div>
+  </div>
+
+  <script>
+    async function loadImages() {
+      const res = await fetch('/api/images');
+      const images = await res.json();
+      const list = document.getElementById('imageList');
+      list.innerHTML = '';
+      images.forEach(image => {
+        const link = document.createElement('a');
+        link.textContent = image;
+        link.href = '#';
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          displayImage(image);
+        });
+        list.appendChild(link);
+      });
+    }
+
+    function displayImage(filename) {
+      const selected = document.getElementById('selectedImages');
+      selected.innerHTML = ''; // Only show one image at a time
+      const img = document.createElement('img');
+      img.src = `/images/${filename}`;
+      selected.appendChild(img);
+    }
+
+    async function loadLogs() {
+      const res = await fetch('/api/logs');
+      const logs = await res.text();
+      document.getElementById('logsBox').textContent = logs;
+    }
+
+    loadImages();
+    loadLogs();
+  </script>
+</body>
+</html>
