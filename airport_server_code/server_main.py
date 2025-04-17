@@ -1,8 +1,12 @@
+import base64
 import paho.mqtt.client as mqtt
+import datetime as dt
 
-THE_BROKER = "192.168.1.54"
+THE_BROKER = "192.168.88.10"
 CLIENT_ID = ""
-BROKERS_PORT = 1883
+BROKERS_PORT = 8884
+
+FSAVPATH = "full_internet_server_code/files_to_serve/images/"
 
 class MQTTServer:
     
@@ -35,20 +39,23 @@ class MQTTServer:
         
     
     def __on_publish(self, client, userdata, mid):
-        # We really shouldnt need to publush anything so pass
+        # We really shouldnt need to publish anything so pass
         pass
 
     def __on_message(self, client, userdata, msg):
-        message = str(msg.payload.decode("utf-8"))
-
-        self.__topics_to_rx_from_and_functions_to_run_once_rxd[msg.topic](message)
+        # message = str(msg.payload.decode("utf-8"))
+        print("Encoded image data received and saved as 'received_image.jpg'")
+        self.__topics_to_rx_from_and_functions_to_run_once_rxd[msg.topic](msg.payload)
 
     def connect_to_server(self, provided_host, provided_port):
         self.client.connect(provided_host, provided_port)
         
 
     def image_handler(self, decoded_msg):
-        print ("Image Received", decoded_msg)
+        with open(FSAVPATH+"received_image-" + dt.datetime.now().strftime("%m%d-%H%M%S") + ".jpg"
+        , "wb") as f:
+            f.write(base64.b64decode(decoded_msg))
+        print ("image Processed and saved")
     
     def loc_data_handler(self, decoded_msg):
         print ("Location Data Received", decoded_msg)

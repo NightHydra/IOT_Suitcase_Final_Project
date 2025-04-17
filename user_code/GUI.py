@@ -91,7 +91,7 @@ class MainWindow(QMainWindow):
         # Put the image in the widget
         pixmap_to_set_to = QPixmap()
         pixmap_to_set_to.loadFromData(self.__img_handler.get_image_data(s))
-        self.__image_widget.setPixmap(pixmap_to_set_to)
+        self.__image_widget.setPixmap(pixmap_to_set_to.scaled(300, 300, Qt.KeepAspectRatio))
 
 
 app = QApplication(sys.argv)
