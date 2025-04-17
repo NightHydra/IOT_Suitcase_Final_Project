@@ -56,8 +56,8 @@ class MainWindow(QMainWindow):
         refreshButton.clicked.connect(self.__refresh_images)
         # Make a widget to display the image
         self.__image_widget = QLabel(self)
-        self.__image_widget.adjustSize(False)
-
+        self.__image_widget.setScaledContents(True)
+        
         self.__image_selection_widget = QListWidget()
         # Add the function for when someone selects something in the selection
         #    Widget.  When that happens display the image
