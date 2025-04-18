@@ -2,7 +2,7 @@ from server_side_handler import ImageHandler
 import sys
 
 # Import Pyqt stuff for GUI
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QListWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QListWidget, QSizePolicy
 from PyQt5.QtGui import QPalette, QColor, QPixmap
 
 from PyQt5.QtCore import Qt
@@ -27,6 +27,7 @@ class MainWindow(QMainWindow):
 
         col_layout.addLayout(self.__sections["ImgShower"])
         col_layout.addLayout(self.__sections["LogShower"])
+
         
 
         main_layout.addLayout(self.__sections["TitleShower"])
@@ -56,17 +57,19 @@ class MainWindow(QMainWindow):
         refreshButton.clicked.connect(self.__refresh_images)
         # Make a widget to display the image
         self.__image_widget = QLabel(self)
-        self.__image_widget.setScaledContents(True)
         
+        refreshButton.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.__image_selection_widget = QListWidget()
+
         # Add the function for when someone selects something in the selection
         #    Widget.  When that happens display the image
         self.__image_selection_widget.currentTextChanged.connect(self.__show_new_img)
 
         # Add the img showers widget
-        img_shower.addWidget(refreshButton,alignment = Qt.AlignHCenter | Qt.AlignTop)
-        img_shower.addWidget(self.__image_selection_widget,alignment = Qt.AlignHCenter | Qt.AlignTop)
-        img_shower.addWidget(self.__image_widget, alignment = Qt.AlignHCenter | Qt.AlignTop)
+        img_shower.addWidget(refreshButton, alignment = Qt.AlignHCenter | Qt.AlignTop)
+        img_shower.addWidget(self.__image_selection_widget, alignment = Qt.AlignHCenter | Qt.AlignTop)
+        img_shower.addWidget(self.__image_widget,  alignment = Qt.AlignHCenter | Qt.AlignTop)
+
 
     def __configure_log_shower(self, log_shower):
         refreshButton = QPushButton("Refresh Log")
