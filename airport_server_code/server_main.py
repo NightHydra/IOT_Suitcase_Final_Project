@@ -2,9 +2,9 @@ import base64
 import paho.mqtt.client as mqtt
 import datetime as dt
 
-THE_BROKER = "192.168.88.10"
+THE_BROKER = "192.168.88.88"
 CLIENT_ID = ""
-BROKERS_PORT = 8884
+BROKERS_PORT = 1883
 
 FSAVPATH = "full_internet_server_code/files_to_serve/images/"
 
@@ -48,6 +48,11 @@ class MQTTServer:
         self.__topics_to_rx_from_and_functions_to_run_once_rxd[msg.topic](msg.payload)
 
     def connect_to_server(self, provided_host, provided_port):
+        # self.client.tls_set(
+            # ca_certs="C:\Users\jpizz\OneDrive\Documents\RPI\Spring 2025\ECSE-6660 - IoT\Final Project\IOT_Suitcase_Final_Project\certs\ca.crt",
+            # certfile="C:\Users\jpizz\OneDrive\Documents\RPI\Spring 2025\ECSE-6660 - IoT\Final Project\IOT_Suitcase_Final_Project\certs\server.crt",
+            # keyfile="C:\Users\jpizz\OneDrive\Documents\RPI\Spring 2025\ECSE-6660 - IoT\Final Project\IOT_Suitcase_Final_Project\certs\server.key"
+        # )
         self.client.connect(provided_host, provided_port)
         
 

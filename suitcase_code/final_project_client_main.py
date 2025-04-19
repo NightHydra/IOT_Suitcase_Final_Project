@@ -4,8 +4,8 @@ from final_project_image_handler import CameraHandler
 import threading
 
 CLIENT_ID = ""
-THE_BROKER = "192.168.199.1"
-BROKER_PORT = 8884
+THE_BROKER = "192.168.199.2"
+BROKER_PORT = 1883
 
 class MQTTHandler:
     def __init__(self):
@@ -15,6 +15,11 @@ class MQTTHandler:
         self.msg_num = 0
 
     def connect_to_broker(self):
+        # self.client.tls_set(
+            # ca_certs="/home/pi/Documents/FinalProject/IOT_Suitcase_Final_Project/certs/ca.crt",
+            # certfile="/home/pi/Documents/FinalProject/IOT_Suitcase_Final_Project/certs/client.crt",
+            # keyfile="/home/pi/Documents/FinalProject/IOT_Suitcase_Final_Project/certs/client.key"
+	# )
         self.client.connect(THE_BROKER, port=BROKER_PORT, keepalive=60)
         self.client.loop_start()
 
@@ -24,7 +29,7 @@ class MQTTHandler:
             self.client.publish("IOT_SUITCASE_DATA/IMAGES", qos=1, payload=img)
             self.msg_num += 1
             print(f"Published image {self.msg_num}")
-            time.sleep(20)  # wait 20 seconds
+            time.sleep(10)  # wait 10 seconds
 
     def __on_connect(self, client, userdata, flags, rc):
         print("Connected with result code", rc)
