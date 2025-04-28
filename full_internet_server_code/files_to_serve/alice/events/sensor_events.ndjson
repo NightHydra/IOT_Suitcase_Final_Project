@@ -1,0 +1,11 @@
+{"timestamp": "2025-04-20 12:00:00", "type": "SWITCH", "state": "OPEN"}
+{"timestamp": "2025-04-20 12:00:05", "type": "SWITCH", "state": "CLOSED"}
+{"timestamp": "2025-04-20 12:00:10", "type": "PUSH", "magnitude": 3.2}
+{"timestamp": "2025-04-20 12:00:15", "type": "GPS", "lat": 42.703, "lon": -73.686}
+{"timestamp": "2025-04-20 12:00:20", "type": "SWITCH", "state": "OPEN"}
+{"timestamp": "2025-04-20 12:00:25", "type": "SWITCH", "state": "CLOSED"}
+{"timestamp": "2025-04-20 12:00:30", "type": "PUSH", "magnitude": 3.6}
+{"timestamp": "2025-04-20 12:00:35", "type": "GPS", "lat": 42.703, "lon": -73.686}
+{"timestamp": "2025-04-20 12:00:40", "type": "SWITCH", "state": "OPEN"}
+{"timestamp": "2025-04-20 12:00:45", "type": "SWITCH", "state": "CLOSED"}
+{"timestamp": "2025-04-20 12:01:00", "type": "SWITCH", "state": "OPEN"}

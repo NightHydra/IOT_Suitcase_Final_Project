@@ -1,0 +1,7 @@
+# The following variables needs to be appended or set in /boot/firmware/config.txt
+
+camera_auto_detect=1
+
+[all]
+enable_uart=1
+dtoverlay=disable-bt
